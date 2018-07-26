@@ -11,7 +11,11 @@ const app = express()
 app.use(bodyParser.json())
 
 // DB Config
-const db = require('./config/keys').mongo.connect
+if (process.env.NODE_ENV === 'production') {
+  const db = process.env.MONGO_URI
+} else {
+  const db = require('./config/keys').mongo.connect
+}
 
 // Connect to Mongo
 mongoose
